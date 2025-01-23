@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Expenses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Your Expenses</h1>
+    <div class="container">
+        <form method="POST" action="/view">
+            <label for="filter_date">Filter by Date:</label>
+            <input type="date" id="filter_date" name="filter_date">
+            
+            <label for="filter_category">Filter by Category:</label>
+            <input type="text" id="filter_category" name="filter_category" placeholder="e.g., Food, Travel">
+            
+            <button type="submit">Apply Filters</button>
+        </form>
+    </div>
+    
+    <div class="container">
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Description</th>
+            </tr>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense[1] }}</td>
+                <td>₹{{ expense[2] }}</td>
+                <td>{{ expense[3] }}</td>
+                <td>{{ expense[4] }}</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="/">Back to Home</a>
+
+        <a href="/dashboard">View Dashboard</a>
+
+    </div>
+</body>
+</html>

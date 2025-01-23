@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Expense Tracker</h1>
+    
+    <div class="container">
+        <div class="budget-total-container">
+            <div class="budget-total-box">
+                <h3>Budget</h3>
+                <p>₹{{ budget_amount }}</p>
+               
+                <a>
+                <form action="/set_budget" method="POST">
+                    <label for="budget">Set/Update:</label>
+                    <input type="number" id="budget" name="budget" required>
+                    <button type="submit">Set Budget</button>
+                </form>
+                </a>
+            </div>
+            <div class="budget-total-box">
+                <h3>Total Expenses</h3>
+                <p>₹{{ total_expenses }}</p>
+                <a href="/add">Add Expense</a>
+                <a href="/view" >View Expense</a>
+        
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <h2 style="text-align: center; color: rgb(4, 27, 142);">HISTORY</h2>
+    
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense[1] }}</td>
+            <td>₹{{ expense[2] }}</td>
+            <td>{{ expense[3] }}</td>
+            <td>{{ expense[4] }}</td>
+            <td><a href="/delete/{{ expense[0] }}" style="background-color: #dc3545;">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
